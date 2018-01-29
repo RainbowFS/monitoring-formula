@@ -23,8 +23,8 @@ chronograf:
     - environment:
       - INFLUXDB_URL=http://{{ monitoring_host_ip  }}:8086
     - require:
-      - chronograf:latest
-      - influxdb:latest
+      - docker_image: chronograf:latest
+      - docker_image: influxdb:latest
 
 influxdb:
   docker_container.running:
@@ -33,7 +33,7 @@ influxdb:
       - port_bindings:
         - {{ monitoring_host_ip  }}:8086:8086
       - require:
-        - influxdb:latest
+        - docker_image: influxdb:latest
 
 nherbaut/flowmatrix:
   docker_image.present: []
