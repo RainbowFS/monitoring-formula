@@ -6,8 +6,6 @@ apt-transport-https:
   pkg.installed: []
 
 
-python-software-properties:
-  pkg.installed: []
 
 
 software-properties-common:
@@ -27,7 +25,6 @@ nftables-ppa:
       - nftables
     - require:
       - pkg: apt-transport-https
-      - pkg: python-software-properties
       - pkg: software-properties-common
 
 
