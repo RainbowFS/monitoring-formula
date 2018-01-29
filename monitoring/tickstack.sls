@@ -41,6 +41,8 @@ nherbaut/flowmatrix:
     - name: flowmatrix
     - detach: True
     - image: nherbaut/flowmatrix
+    - binds: 
+      - /srv/pillar:/opt/flow-matrix:ro
     - port_bindings:
       - {{ monitoring_host_ip }}:5011:5011
     - environment:
