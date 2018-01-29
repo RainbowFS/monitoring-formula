@@ -7,7 +7,7 @@ python-dev:
 
 /tmp/Docker_Spy-0.0.4-py2.7.egg:
   file.managed:
-    - source: salt://docker_spy/Docker_Spy-0.0.4-py2.7.egg
+    - source: salt://monitoring/bin/Docker_Spy-0.0.4-py2.7.egg
 
 
 

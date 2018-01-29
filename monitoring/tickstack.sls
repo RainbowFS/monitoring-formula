@@ -1,18 +1,12 @@
 {% if grains.id ==  salt['pillar.get']('monitoring:host')   %}
 
-include:
-  - docker
 
 chronograf:latest:
-  docker_image.present:
-    - require:
-      - sls: docker
+  docker_image.present: []
 
 
 influxdb:latest:
-   docker_image.present:
-     - require:
-       - sls: docker
+   docker_image.present: []
 
 
 {% set monitoring_host = salt['pillar.get']('monitoring:host') %}
@@ -42,9 +36,7 @@ influxdb:
         - influxdb:latest
 
 nherbaut/flowmatrix:
-  docker_image.present:
-    - require:
-      - sls: docker
+  docker_image.present: []
   docker_container.running:
     - name: flowmatrix
     - detach: True
