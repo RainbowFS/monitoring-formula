@@ -3,7 +3,7 @@
 
 /usr/bin/telegraf:
   file.managed:
-       - source: salt://monitoring/files/telegraf
+       - source: salt://monitoring/bin/telegraf
        - mode: 0775
        - skip_verify: True
        - makedirs: True
