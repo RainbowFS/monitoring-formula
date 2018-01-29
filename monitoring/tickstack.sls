@@ -1,12 +1,12 @@
 {% if grains.id ==  salt['pillar.get']('monitoring:host')   %}
 
 
-chronograf:latest:
-  docker_image.present: []
+docker pull chronograf:latest:
+  cmd.run: []
 
 
-influxdb:latest:
-   docker_image.present: []
+docker pull influxdb:latest:
+   cmd.run: []
 
 
 {% set monitoring_host = salt['pillar.get']('monitoring:host') %}
@@ -23,8 +23,8 @@ chronograf:
     - environment:
       - INFLUXDB_URL=http://{{ monitoring_host_ip  }}:8086
     - require:
-      - docker_image: chronograf:latest
-      - docker_image: influxdb:latest
+      - cmd: docker pull influxdb:latest
+      - cmd: docker pull chronograf:latest
 
 influxdb:
   docker_container.running:
@@ -33,7 +33,7 @@ influxdb:
       - port_bindings:
         - {{ monitoring_host_ip  }}:8086:8086
       - require:
-        - docker_image: influxdb:latest
+        - cmd: docker pull influxdb:latest
 
 nherbaut/flowmatrix:
   docker_image.present: []
