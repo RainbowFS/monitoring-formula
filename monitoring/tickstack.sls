@@ -1,4 +1,5 @@
 {% if grains.id ==  salt['pillar.get']('monitoring:host')   %}
+{% set influxdb_port = salt['pillar.get']('monitoring:influxdb_port',"8086") %}
 
 
 chronograf:latest:
@@ -21,7 +22,7 @@ chronograf:
       - {{ monitoring_host_ip }}:8888:8888
     - link: influxdb
     - environment:
-      - INFLUXDB_URL=http://{{ monitoring_host_ip  }}:8086
+      - INFLUXDB_URL=http://{{ monitoring_host_ip  }}:{{influxdb_port}}
     - require:
       - docker_image: chronograf:latest
       - docker_image: influxdb:latest
@@ -31,7 +32,7 @@ influxdb:
       - image: influxdb:latest
       - detach: True
       - port_bindings:
-        - {{ monitoring_host_ip  }}:8086:8086
+        - {{ monitoring_host_ip  }}:8086:{{influxdb_port}}
       - require:
         - docker_image: influxdb:latest
 
