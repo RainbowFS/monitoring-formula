@@ -32,7 +32,7 @@ influxdb:
       - image: influxdb:latest
       - detach: True
       - port_bindings:
-        - {{ monitoring_host_ip  }}:8086:{{influxdb_port}}
+        - {{ monitoring_host_ip  }}:{{influxdb_port}}:8086
       - require:
         - docker_image: influxdb:latest
 
