@@ -48,6 +48,7 @@ nherbaut/flowmatrix:
       - {{ monitoring_host_ip }}:5011:5011
     - environment:
       - INFLUX_DB_HOST: {{ monitoring_host_ip  }}
+      - INFLUX_DB_PORT: {{ influxdb_port }} 
     - require:
       - docker_container: influxdb
 
