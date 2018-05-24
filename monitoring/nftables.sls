@@ -1,6 +1,6 @@
 # nftables installation
 
-
+{% set ignore_list = salt["pillar.get"]("monitoring:ignore") %}
 
 apt-transport-https:
   pkg.installed: []
@@ -64,14 +64,13 @@ nft add table filter:
 {% for remote_host in contnet  %}
   {% if remote_host!=salt["pillar.get"]("monitoring:host") %}
 
-  {% for remote_container, remote_container_config in contnet[remote_host].iteritems() %}
+  {% for remote_container, remote_container_config in contnet[remote_host].iteritems() if remote_container not in ignore_list %}
     {% set host_ip=remote_container_config['ip'] %}
     {% set remote_container_ip=remote_container_config['private_ip'] %}
 
 
-    {% for local_container in local_containers  %}
+    {% for local_container in local_containers if local_container not in ignore_list %}
       {% set local_container_ip=local_containers[local_container]['private_ip'] %}
-
 
          {% if remote_host != grains.id or remote_container!=local_container %}
            {% set outbound_chain=grains.id+"_"+local_container+"_"+remote_host+"_"+remote_container %}
